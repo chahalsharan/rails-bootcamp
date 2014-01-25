@@ -1,4 +1,7 @@
-<%= simple_form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
+<%= form_for(resource, 
+					:as => resource_name, 
+					:url => session_path(resource_name),
+					:class => "form-horizontal") do |f| %>
 <div class="row vertical-offset-100">
 	<div class="col-md-4 col-md-offset-4">
 		<div class="panel panel-default">
@@ -9,19 +12,25 @@
 		    	<form accept-charset="UTF-8" role="form">
                 <fieldset>
 		    	  	<div class="form-group">
-		    	  		<%= f.input :email, :required => false, :autofocus => true, placeholder: "E-mail", :class => "form-control" %>
-		    		    <input class="form-control" placeholder="E-mail" name="email" type="text">
+		    	  		<%= f.email_field :email, 
+		    	  					:required => false, 
+		    	  					:autofocus => true, 
+		    	  					placeholder: "E-mail", 
+									class: "form-control" %>
 		    		</div>
 		    		<div class="form-group">
-		    			<%= f.input :password, :required => false, placeholder: "Password" %>
+		    			<%= f.password_field :password, 
+		    	  					:required => false, 
+		    	  					placeholder: "Password", 
+									class: "form-control" %>
+		    			<%#= f.input :password, :required => false, placeholder: "Password", :class => "form-control" %>
 		    		</div>
 		    		<div class="checkbox">
-		    	    	<label>
-		    	    		<%= f.input :remember_me, :as => :boolean if devise_mapping.rememberable? %>
-		    	    		<input name="remember" type="checkbox" value="Remember Me"> Remember Me
-		    	    	</label>
+		    			<%= f.check_box :remember_me, 
+		    						:class => "checkbox inline form-control", 
+		    						:as => :boolean if devise_mapping.rememberable? %> Remember me
 		    	    </div>
-		    	    <%= f.button :submit, "Sign in", :class => "btn btn-lg btn-success btn-block" %>
+		    	    <%= f.submit "Sign in", :class => "btn btn-lg btn-success btn-block" %>
 		    		<%= render "devise/shared/links" %>
 		    	</fieldset>
 		      	</form>
