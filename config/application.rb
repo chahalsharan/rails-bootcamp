@@ -50,12 +50,18 @@ module RailsBootstrap
     # This will create an empty whitelist of attributes available for mass-assignment for all models
     # in your app. As such, your models will need to explicitly whitelist or blacklist accessible
     # parameters by using an attr_accessible or attr_protected declaration.
-    config.active_record.whitelist_attributes = true
+    # config.active_record.whitelist_attributes = true
 
     # Enable the asset pipeline
     config.assets.enabled = true
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+
+    #TODO
+    # If you are deploying on Heroku with Rails 3.2 only, you may want to set:
+    # On config/application.rb forcing your application to not access the DB
+    # or load models when precompiling your assets.
+    # config.assets.initialize_on_precompile = false
   end
 end

@@ -14,6 +14,9 @@ gem 'high_voltage'
 gem 'simple_form'
 gem 'therubyracer', :platform=>:ruby
 gem 'thin'
+gem "mysql2", "~> 0.3.14"
+gem "devise", "~> 3.2.2"
+gem "cancan", "~> 1.6.10"
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller', :platforms=>[:mri_19, :mri_20, :rbx]
