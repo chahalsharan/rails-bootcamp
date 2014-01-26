@@ -17,6 +17,8 @@ gem 'thin'
 gem "mysql2", "~> 0.3.14"
 gem "devise", "~> 3.2.2"
 gem "cancan", "~> 1.6.10"
+gem "angularjs-rails", "~> 1.2.9"
+#gem "angularstrap-rails", "~> 0.7.6"
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller', :platforms=>[:mri_19, :mri_20, :rbx]

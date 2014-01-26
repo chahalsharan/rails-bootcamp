@@ -1,0 +1,8 @@
+<input type="hidden" ng-model="searchText.search" ng-init="searchText.search='<%= @searchTerm %>';">
+<div ng-controller="ListingCtrl" >
+  <ul>
+    <li ng-repeat="item in items">
+      {{item.name}}
+    </li>
+  </ul>
+</div>
