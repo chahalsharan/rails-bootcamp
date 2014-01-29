@@ -9,8 +9,10 @@
     <%= csrf_meta_tags %>
   </head>
   <body>
-    <header>
-      <%= render 'layouts/navigation' %>
+    <header ng-controller="NavCtrl">
+      <div ng-include="nav.url">
+        <%#= render 'layouts/navigation' %>
+      </div>
     </header>
     <main role="main">
 

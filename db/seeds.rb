@@ -19,3 +19,9 @@ Item.create!(   name: "Thermal Leak detector",
                 model: "",
                 condition: "New", 
                 price: "50");
+User.create!(   name: "Thermal Leak detector", 
+                description: "Helps finding cold drafts from doors and windows", 
+                brand: "Black and Decker", 
+                model: "",
+                condition: "New", 
+                price: "50");

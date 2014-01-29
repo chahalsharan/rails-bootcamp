@@ -11,6 +11,12 @@
                 $("#shared_modal").modal('show');
                 event.stopPropagation;
             });
+
+            $scope.$on("modal_hide", function(event, args){
+                console.log('in modal hide******');
+                $("#shared_modal").modal('hide');
+                event.stopPropagation;
+            });
         }
     ];
 }).call(this);

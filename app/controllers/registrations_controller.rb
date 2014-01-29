@@ -1,30 +1,16 @@
-class SessionsController < Devise::SessionsController
+class RegistrationsController < Devise::RegistrationsController
   respond_to :json
 
-  def login_form
-    render partial: "users/login" 
-  end
-
-  def signup_form
-    render partial: "users/signup" 
+  def new
+    super
   end
 
   def create
-    puts "I am here in login *********"
-    resource = warden.authenticate!(:scope => resource_name, :recall => "#{controller_path}#failure")
-    render :status => 200,
-           :json => { :success => true,
-                      :info => "Logged in",
-                      :user => current_user
-           }
+    super
   end
 
-  def failure
-    puts "i am here in failure"
-    render :status => 401,
-           :json => { :success => false,
-                      :info => "Login Credentials Failed"
-           }
+  def update
+    super
   end
 
   # def login

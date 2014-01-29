@@ -1,7 +1,7 @@
 <div ng-controller="UsersCtrl">
     <div class="modal-header modal-resized-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title auth-form-heading">Sign in</h4>
+        <h4 class="modal-title auth-form-heading">Sign up</h4>
     </div>
     <div class="modal-body modal-resized-body">
         <form role="form">
@@ -15,14 +15,13 @@
                 <input type="password" class="form-control" type="email" id="user.password" placeholder="Enter email" ng-model="user.password" >
             </div>
             <div class="form-group">
-                <label class="checkbox">
-                    <input type="checkbox" value="remember-me"> Remember me
-                </label>
+                <label for="user.confirm_password">Confirm Password</label>
+                <input type="password" class="form-control" type="email" id="user.confirm_password" placeholder="Enter email" ng-model="user.confirm_password" >
             </div>
         </form>
     </div>
     <div class="modal-footer modal-resized-footer">
-        <button ng-click="login()" class="btn btn-lg btn-success btn-block" >Login</button>
+        <button ng-click="signup()" class="btn btn-lg btn-success btn-block" >Signup</button>
         <%= render "devise/shared/links" %>
     </div>
 </div>
