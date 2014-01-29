@@ -17,7 +17,11 @@
 //= require angular
 //= require angular-resource
 
+
 //= require services/listingsService
 //= require controllers/listings
+//= require controllers/modals
+//= require controllers/navigation
+//= require controllers/users
 
 //= require_tree .

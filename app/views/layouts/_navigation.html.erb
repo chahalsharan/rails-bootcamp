@@ -10,7 +10,7 @@
       </button>
       <%= link_to 'Home', root_path, class: 'navbar-brand' %>
     </div>
-    <div class="collapse navbar-collapse">
+    <div class="collapse navbar-collapse" ng-controller="NavCtrl">
       <ul class="nav navbar-nav">
         <%= render 'layouts/navigation_links' %>
         <% if user_signed_in? %>
@@ -24,7 +24,7 @@
           <%= link_to "Sign up", new_user_registration_path %>
         </li>
         <li>
-          <%= link_to "Login", new_user_session_path %>
+          <a href="#!" ng-click="loadAndShowModal('login')">Login</a>
         </li>
         <% end %>
       </ul>

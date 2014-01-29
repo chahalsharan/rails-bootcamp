@@ -47,3 +47,25 @@ section {
 .vertical-offset-100{
     padding-top:100px;
 }
+.modal-resized-dialog{
+  width: 400px;
+}
+.modal-resized-footer{
+  margin-top: 0px;
+  padding: 10px 10px 10px;
+  text-align: center;
+}
+.modal-resized-header{
+  padding: 10px;
+}
+.modal-resized-body{
+  padding: 10px;
+}
+.modal-resized-footer ul li { 
+  display: inline;
+}
+.modal-resized-footer li + li {
+  border-left: 1px solid;
+  margin-left:.5em;
+  padding-left:.5em;
+}

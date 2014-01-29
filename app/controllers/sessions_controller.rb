@@ -1,5 +1,11 @@
 class SessionsController < Devise::SessionsController
   respond_to :json
+
+  def login_form
+    puts "I am here **********"
+    render partial: "users/login" 
+  end
+
   def create
     resource = warden.authenticate!(:scope => resource_name, :recall => "#{controller_path}#failure")
     render :status => 200,

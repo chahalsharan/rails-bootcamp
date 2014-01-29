@@ -6,8 +6,10 @@
                   <h3 class="panel-title">Search By Item</h3>
               </div>
               <div class="panel-body">
+                <div ng-bind="modal.content">
+                </div>
                 <div class="form-group">
-                    <input type="text" name="searchTerm" class="form-control" />
+                    <input type="text" name="searchTerm" class="form-control"/>
                 </div>
                 <input type="submit" value="Search" class="btn btn-lg btn-success btn-block" />
               </div>
