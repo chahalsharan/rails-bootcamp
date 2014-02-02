@@ -6,6 +6,7 @@
         "$scope", function($scope) {
             $scope.app = {};
 
+            $scope.app.currentlink = "";
             $scope.app.passwordMinlength = 8;
             $scope.app.passwordMaxlength = 20;
 

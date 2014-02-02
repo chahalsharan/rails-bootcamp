@@ -14,7 +14,13 @@
             };
 
             $scope.nav = {}
+            $scope.nav.sharedlinks = [
+                {label: "Sign in", action: "login"},
+                {label: "Sign up", action: "signup"},
+                {label: "Forgot your password", action: "frgotpassword"}
+            ];
             $scope.nav.url = "/navigation";
+            $scope.nav.current = "";
 
             // listener that reloads the navigation discarding the cache
             $scope.$on("navigation_reload", function(event, args){
@@ -31,6 +37,18 @@
                 $scope.$root.$broadcast("modal_load", {templateUrl : $scope.templates[temp]});
                 // hide the alert messages on navigation clicks
                 $scope.$root.$broadcast("hide-flash-messages");
+                //store the current location in a variable
+                $scope.app.currentlink = temp;
+            };
+
+            $scope.sharedlinks = function(){
+                var links = [];
+                for(var index in $scope.nav.sharedlinks){
+                    if($scope.nav.sharedlinks[index].action != $scope.app.currentlink){
+                        links.push($scope.nav.sharedlinks[index])    
+                    }
+                }
+                return links;
             };
         }
     ];
