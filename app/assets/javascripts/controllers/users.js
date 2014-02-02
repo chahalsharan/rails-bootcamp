@@ -1,85 +1,81 @@
 (function() {
+    /* 
+     * Controller for User actions like signup, login
+     *  for usage see _login.html.erb, _signup.html.erb
+     */
     this.UsersCtrl = ["$scope", "Session",
         function($scope, Session) {
 
+            $scope.signupform = {};
+
+            // controller method fired on login form's submit action
             $scope.login = function() {
-                console.log("In login UsersCtrl");
-
-
                 Session.login($scope.user.email, $scope.user.password)
                 .then(function(response) {
-                    console.log("***** login called ****");
                     if (response && response.status === 200) {
-                        console.log("***** login successful ****" + response);
-                        $scope.user.error = 'Success!';
+                        // hide the login modal
                         $scope.$root.$broadcast("modal_hide");
-
+                        // reload the navigation to udpate the options
                         $scope.$root.$broadcast("navigation_reload");
                     } else {
-                        console.log("***** login un-ssuccessful ****" + response);
+                        // show login failure message
                         $scope.user.error = 'Credentials are not valid';
                     }
                 }, function(response) {
-                    console.log("***** login call failed ****");
+                    // to handle rare server errors
                     $scope.user.error = 'Server offline, please try later';
                 });
+                
             };
 
+            // method that handles the signup form submit
             $scope.signup = function() {
+                $scope.signupform.errors = [];
 
-                console.log("In signup UsersCtrl");
-
-                Session.register($scope.user.email, $scope.user.password, $scope.user.confirm_password)
-                .then(function(response) {
-                    console.log("***** signup called ****");
-                    if (!response) {
-                        console.log("***** signup un-ssuccessful ****");
-                        $scope.authError = 'Credentials are not valid';
-                    } else {
-                        console.log("***** signup successful ****");
-                        $scope.authError = 'Success!';
-                    }
-                }, function(response) {
-                    console.log("***** signup call failed ****");
-                    $scope.authError = 'Server offline, please try later';
-                });
+                // proceed only if the form has been validated
+                if($scope.signupform.$valid){
+                    // call the service
+                    Session.register($scope.user.email, $scope.user.password, $scope.user.confirm_password)
+                    .then(function(response) {
+                        // in case user sign up is successful, 
+                        //  an ID will be returned
+                        if(response.id){
+                            // reload the navigation
+                            //$scope.$root.$broadcast("navigation_reload"); // no need to reload navigation for now
+                            // hide the signup modal
+                            $scope.$root.$broadcast("modal_hide");
+                            // flash a success message and guide user to login
+                            $scope.$root.$broadcast("flash-success", {message : "Congratulatins! Welcome to WeShare. Please proceed to login."});
+                        }else{
+                            // handle any rare server errors
+                            $scope.signupform.error = "Sign up unsuccessful. Server error occured, please try later.";
+                        }
+                    }, function(response) {
+                        var errors = response.data.errors;
+                        // show the error messages if present 
+                        if(errors){
+                            for(errorfield in errors){
+                                // if there is a field for that error on the screen
+                                //  show the error corresponding to the field
+                                if($scope.signupform[errorfield]){
+                                    // add the error to the field's error list
+                                    $scope.signupform[errorfield].error = errors[errorfield][0];
+                                    // invalidate the field, with server error
+                                    //  for usage see _signup.html.erb
+                                    $scope.signupform[errorfield].$setValidity('server', false);
+                                }else{
+                                    // else show error in form
+                                    $scope.signupform.errors.push("Error with field [" + errorfield + "], [" + errors[errorfield] + "]");
+                                }
+                            }
+                        }else{
+                            $scope.signupform.error = "Server error occured, please try later.";
+                        }
+                    });
+                }else{
+                    $scope.signupform.error = "Invalid details entered";
+                }
             };
         }
     ];
 }).call(this);
-
-// function UsersCtrl($scope, Session) {"use strict";
-//     $scope.login = function(user) {
-//         $scope.authError = null;
-
-//         Session.login(user.email, user.password)
-//         .then(function(response) {
-//             if (!response) {
-//                 $scope.authError = 'Credentials are not valid';
-//             } else {
-//                 $scope.authError = 'Success!';
-//             }
-//         }, function(response) {
-//             $scope.authError = 'Server offline, please try later';
-//         });
-//     };
-
-//     $scope.logout = function(user) {
-
-//     };
-
-//     $scope.register = function(user) {
-//         $scope.authError = null;
-
-//         Session.register(user.email, user.password, user.confirm_password)
-//             .then(function(response) {
-//                console.log(response);
-//             }, function(response) {
-//                 var errors = '';
-//                 $.each(response.data.errors, function(index, value) {
-//                     errors += index.substr(0,1).toUpperCase()+index.substr(1) + ' ' + value + ''
-//                 });
-//                 $scope.authError = errors;
-//             });
-//     };
-// }

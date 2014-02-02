@@ -1,4 +1,5 @@
 class RegistrationsController < Devise::RegistrationsController
+  
   respond_to :json
 
   def new
@@ -6,7 +7,16 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def create
-    super
+    puts params.to_yaml
+    puts "I am here .... "
+
+    self.resource = User.new(params[:user].permit(:email, :password))
+    if resource.save
+      render json: resource
+    else
+
+      render json: {:errors => resource.errors}, :status => :unprocessable_entity
+    end
   end
 
   def update

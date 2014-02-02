@@ -1,5 +1,5 @@
 (function() {
-    var app = angular.module("WeShare", ["ngResource"]);
+    var app = angular.module("WeShare", []);
 
     app.factory("Session", ["$location", "$http", "$q", 
         function($location, $http, $q) {
@@ -34,12 +34,19 @@
                     return !!service.currentUser;
                 },
                 register: function(email, password, confirm_password) {
-                    return $http.post('/users', {user: {email: email, password: password, password_confirmation: confirm_password} })
+                    console.log("Going to call service to signup ***");
+                    return $http.post('/users', {
+                        user: {
+                            email: email, 
+                            password: password, 
+                            password_confirmation: confirm_password,
+                            remote: true
+                        } 
+                    })
                     .then(function(response) {
+                        console.log("Here in then");
                         service.currentUser = response.data;
-                        if (service.isAuthenticated()) {
-                            $location.path('/record');
-                        }
+                        return service.currentUser;
                     });
                 }
             };

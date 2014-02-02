@@ -1,9 +1,15 @@
 <%# Rails flash messages styled for Bootstrap 3.0 %>
 <% flash.each do |name, msg| %>
   <% if msg.is_a?(String) %>
-    <div class="alert alert-<%= name == :notice ? "success" : "danger" %>">
+    <div class="server-alerts alert alert-<%= name == :notice ? "success" : "danger" %>">
       <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
       <%= content_tag :div, msg, :id => "flash_#{name}" %>
     </div>
   <% end %>
 <% end %>
+<div ng-controller="MsgCtrl">
+    <div class="alert" ng-class="msg.class" ng-show="msg.show">
+        <button type="button" ng-click="hideMessage()" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        {{msg.message}}
+    </div>
+</div>

@@ -4,24 +4,55 @@
         <h4 class="modal-title auth-form-heading">Sign up</h4>
     </div>
     <div class="modal-body modal-resized-body">
-        <form role="form">
-            <div class="{{isExist(user.error) && 'alert alert-error'}}" ng-bind="user.error"></div>
-            <div class="form-group">
-                <label for="user.email">Email</label>
-                <input type="email" class="form-control" required="required" id="user.email" placeholder="E-mail" autofocus="autofocus" ng-model="user.email" >
+        <form name="signupform" novalidate>
+            <div class="has-error" ng-repeat="error in signupform.errors">
+                <p class="help-block">{{ error }}</p>
             </div>
-            <div class="form-group">
-                <label for="user.password">Password</label>
-                <input type="password" class="form-control" type="email" id="user.password" placeholder="Enter email" ng-model="user.password" >
+            <div class="form-group" 
+            ng-class="{'has-error' : signupform.email.$invalid && !signupform.email.$pristine}">
+                <label>Email</label>
+                <input type="email" 
+                name="email" 
+                class="form-control" 
+                ng-model="user.email" 
+                required
+                autofocus
+                clearcustomerror>
+                <p ng-show="signupform.email.$invalid && !signupform.email.$pristine && !signupform.email.$error.server" class="help-block">Enter a valid email.</p>
+                <p ng-show="signupform.email.$error.server && !signupform.email.$pristine" class="help-block">{{ signupform.email.error }}</p>
             </div>
-            <div class="form-group">
-                <label for="user.confirm_password">Confirm Password</label>
-                <input type="password" class="form-control" type="email" id="user.confirm_password" placeholder="Enter email" ng-model="user.confirm_password" >
+            <div class="form-group"
+            ng-class="{'has-error' : signupform.password.$invalid && !signupform.password.$pristine}">
+                <label>Password</label>
+                <input type="password" name="password" class="form-control" 
+                ng-model="user.password" 
+                required 
+                ng-minlength="{{app.passwordMinlength}}" 
+                ng-maxlength="{{app.passwordMaxlength}}" 
+                ng-pattern="app.passwordPattern"
+                clearcustomerror
+                >
+                <p ng-show="signupform.password.$invalid && !signupform.password.$pristine && !signupform.password.$error.minlength && !signupform.password.$error.maxlength && !signupform.password.$error.server" class="help-block">Password must contain a mix of characters and numbers.</p>
+                <p ng-show="signupform.password.$error.minlength" class="help-block">Password is too short.</p>
+                <p ng-show="signupform.password.$error.maxlength" class="help-block">Password is too long.</p>
+                <p ng-show="signupform.password.$error.server && !signupform.password.$pristine" class="help-block">{{ signupform.password.error }}</p>
+            </div>
+            <div class="form-group"
+            ng-class="{'has-error' : signupform.confirm_password.$invalid && !signupform.confirm_password.$pristine}">
+                <label>Confirm Password</label>
+                <input type="password" name="confirm_password" class="form-control" 
+                ng-model="user.confirm_password" 
+                equals="{{ user.password }}" 
+                required
+                clearcustomerror
+                >
+                <p ng-show="signupform.confirm_password.$invalid && !signupform.confirm_password.$pristine && !signupform.confirm_password.$error.equals" class="help-block">Please confirm the password.</p>
+                <p ng-show="signupform.confirm_password.$error.equals && !signupform.confirm_password.$pristine" class="help-block">Passwords dont match.</p>
             </div>
         </form>
     </div>
     <div class="modal-footer modal-resized-footer">
-        <button ng-click="signup()" class="btn btn-lg btn-success btn-block" >Signup</button>
+        <button type="button" ng-click="signup()"  class="btn btn-lg btn-success btn-block" ng-disabled="signupform.$invalid">Signup</button>
         <%= render "devise/shared/links" %>
     </div>
 </div>

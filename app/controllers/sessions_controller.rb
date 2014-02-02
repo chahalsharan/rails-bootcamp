@@ -1,5 +1,6 @@
 class SessionsController < Devise::SessionsController
   respond_to :json
+  #:protect_from_forgery with: :except => [:destroy]
 
   def login_form
     render partial: "users/login" 
@@ -10,7 +11,6 @@ class SessionsController < Devise::SessionsController
   end
 
   def create
-    puts "I am here in login *********"
     resource = warden.authenticate!(:scope => resource_name, :recall => "#{controller_path}#failure")
     render :status => 200,
            :json => { :success => true,
