@@ -61,10 +61,15 @@ section {
 .modal-resized-body{
   padding: 10px;
 }
-.modal-resized-footer ul li { 
+.sharedlinks ul { 
+  margin-left: 0;
+  padding-left: 0;
+  list-style-type: none;
+}
+.sharedlinks li{
   display: inline;
 }
-.modal-resized-footer li + li {
+.sharedlinks li + li {
   border-left: 1px solid;
   margin-left:.5em;
   padding-left:.5em;

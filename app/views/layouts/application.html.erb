@@ -1,5 +1,11 @@
 <!DOCTYPE html>
-<html ng-app="WeShare">
+<html>
+  <!-- 
+    not bootstraping angular here because of turbolinks issue:
+      http://stackoverflow.com/questions/14797935/using-angularjs-with-turbolinks
+    instead bootstraping it with each page load
+    for usage see application.js
+  -->
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= content_for?(:title) ? yield(:title) : "Rails Bootstrap" %></title>

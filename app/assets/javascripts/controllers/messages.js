@@ -1,8 +1,11 @@
+angular.module('WeShare');
+
 (function() {
     this.MsgCtrl = [
         "$scope", function($scope) {
             $scope.msg = {};
 
+            $scope.msg.show = false;
             $scope.msg.class = 'hide';
             $scope.msgTypes = {
                 "error" : "alert-danger",

@@ -1,3 +1,4 @@
+
 (function() {
     /* This controller controls the dynamic modal on the website
      *  like login and signup modals

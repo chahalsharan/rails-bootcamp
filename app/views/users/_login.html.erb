@@ -4,7 +4,7 @@
         <h4 class="modal-title auth-form-heading">Sign in</h4>
     </div>
     <div class="modal-body modal-resized-body">
-        <form name="loginform">
+        <form name="loginform" novalidate>
             <div class="has-error" ng-repeat="error in loginform.errors">
                 <p class="help-block">{{ error }}</p>
             </div>
@@ -39,7 +39,8 @@
         </form>
     </div>
     <div class="modal-footer modal-resized-footer">
-        <button ng-click="login()" class="btn btn-lg btn-success btn-block" >Login</button>
+        <button type="button" ng-click="login()" class="btn btn-lg btn-success btn-block" 
+        ng-disabled="loginform.$invalid" >Login</button>
         <%= render "devise/shared/links" %>
     </div>
 </div>

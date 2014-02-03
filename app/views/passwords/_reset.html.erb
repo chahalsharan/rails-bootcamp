@@ -1,0 +1,33 @@
+<div ng-controller="UsersCtrl">
+    <div class="modal-header modal-resized-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title auth-form-heading">Forgot password</h4>
+    </div>
+    <div class="modal-body modal-resized-body">
+        <form name="forgotpasswordform">
+            <div class="has-error" ng-repeat="error in forgotpasswordform.errors">
+                <p class="help-block">{{ error }}</p>
+            </div>
+            <div class="form-group"
+            ng-class="{'has-error' : forgotpasswordform.email.$invalid && !forgotpasswordform.email.$pristine}">
+                <label>Email</label>
+                <input type="email" 
+                name="email" 
+                class="form-control" 
+                ng-model="user.email" 
+                required
+                autofocus
+                placeholder="Enter email"
+                clearcustomerror
+                >
+                <p ng-show="forgotpasswordform.email.$invalid && !forgotpasswordform.email.$pristine && !forgotpasswordform.email.$error.server" class="help-block">Enter a valid email.</p>
+                <p ng-show="forgotpasswordform.email.$error.server && !forgotpasswordform.email.$pristine" class="help-block">{{ forgotpasswordform.email.error }}</p>
+            </div>
+            <p class="help-block">Password reset instructions will be sent to your email.</p>
+        </form>
+    </div>
+    <div class="modal-footer modal-resized-footer">
+        <button ng-click="resetpassword()" class="btn btn-lg btn-success btn-block" ng-disabled="forgotpasswordform.$invalid">Submit</button>
+        <%= render "devise/shared/links" %>
+    </div>
+</div>

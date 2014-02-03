@@ -1,4 +1,7 @@
+angular.module('WeShare');
+
 (function() {
+
     this.ListingCtrl = [
         "$scope", "Item", function($scope, Item) {
             $scope.item = {};

@@ -1,3 +1,4 @@
+
 (function() {
     /* 
      * Controller for User actions like signup, login
@@ -8,6 +9,7 @@
 
             $scope.signupform = {};
             $scope.loginform = {};
+            $scope.forgotpasswordform = {};
 
             // controller method fired on login form's submit action
             $scope.login = function() {
@@ -35,6 +37,50 @@
                     $scope.loginform.errors.push("Invalid details entered");
                 }
                 
+            };
+
+            $scope.resetpassword = function(){
+                $scope.forgotpasswordform.errors = [];
+                if($scope.forgotpasswordform.$valid){
+                    Session.resetPassword($scope.user.email)
+                    .then(function(response) {
+                        if (response && response.status === 200) {
+                            // hide the login modal
+                            $scope.$root.$broadcast("modal_hide");
+
+                            $scope.$root.$broadcast("flash-success", 
+                                {message : "Password rest instructions seto to your email"});
+                        } else {
+                            console.log(response)
+                            console.log(response.data)
+                            var errors = response.data.errors;
+                            // show failure message
+                            if(errors){
+                                for(errorfield in errors){
+                                    // if there is a field for that error on the screen
+                                    //  show the error corresponding to the field
+                                    if($scope.forgotpasswordform[errorfield]){
+                                        // add the error to the field's error list
+                                        $scope.forgotpasswordform[errorfield].error = errors[errorfield][0];
+                                        // invalidate the field, with server error
+                                        //  for usage see _signup.html.erb
+                                        $scope.forgotpasswordform[errorfield].$setValidity('server', false);
+                                    }else{
+                                        // else show error in form
+                                        $scope.forgotpasswordform.errors.push("Error with field [" + errorfield + "], [" + errors[errorfield] + "]");
+                                    }
+                                }
+                            }else{
+                                $scope.forgotpasswordform.errors.push("Server error occured, please try later.");
+                            }
+                        }
+                    }, function(response) {
+                        // to handle rare server errors
+                        $scope.forgotpasswordform.errors.push('Server offline, please try later');
+                    });
+                }else{
+                    $scope.forgotpasswordform.errors.push("Invalid details entered");
+                }
             };
 
             // method that handles the signup form submit

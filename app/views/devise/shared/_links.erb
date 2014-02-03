@@ -1,6 +1,6 @@
-<ul ng-controller="NavCtrl">
-    <li>
-        <a href="#!" ng-repeat="link in sharedlinks()" ng-click="loadAndShowModal(link.action)">
+<ul ng-controller="NavCtrl" class="sharedlinks">
+    <li class="sharedlinks" ng-repeat="link in sharedlinks()">
+        <a href="#!" ng-click="loadAndShowModal(link.action)">
             {{link.label}}
         </a>
     </li>

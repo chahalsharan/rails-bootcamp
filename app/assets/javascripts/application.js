@@ -17,7 +17,6 @@
 //= require angular
 //= require angular-resource
 
-
 //= require services/listingsService
 //= require services/sessionService
 //= require controllers/main
@@ -28,6 +27,14 @@
 //= require controllers/messages
 
 //= require_tree .
+
+// need this to bootstrap angular each time a page is loaded
+//  putting it this way instead of on html tag because of turbolinks
+//  turbolinks causes only portion of page to load 
+//  and hence angular doesnt bootstrap on links
+$(document).on('ready page:load', function(){
+    angular.bootstrap(document.body, ['WeShare']);
+});
 
 // === These directives will be loaded at the bottom of all the assets
 // this Directive is to tell an input 
@@ -84,3 +91,4 @@ angular.module('WeShare')
         }
     };
 });
+

@@ -1,13 +1,9 @@
 class SessionsController < Devise::SessionsController
-  respond_to :json
+  respond_to :json, :html
   #:protect_from_forgery with: :except => [:destroy]
 
   def login_form
     render partial: "users/login" 
-  end
-
-  def signup_form
-    render partial: "users/signup" 
   end
 
   def create

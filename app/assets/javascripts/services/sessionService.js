@@ -48,6 +48,25 @@
                         service.currentUser = response.data;
                         return service.currentUser;
                     });
+                },
+                resetPassword: function(email){
+                    console.log("Going to call reset password");
+                    return $http.post('/users/password', {
+                        user: {
+                            email: email,
+                            remote: true
+                        } 
+                    })
+                    .then(function(response) {
+                        console.log("Reset password returned in then");
+                        console.log(response);
+                        return response;
+                    }, function(response) {
+                        console.log("Railed to reset password ***");
+                        console.log(response);
+                        return response;
+                    });
+                    
                 }
             };
             return service;

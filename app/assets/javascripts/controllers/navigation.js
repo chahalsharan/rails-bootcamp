@@ -1,24 +1,21 @@
+angular.module('WeShare');
+
 (function() {
     /* Controller for website Navigation bad and its actions
      *  Like reacting to navigation option clicks
      *   for usage see _navigation.html.erb
      */
-    this.NavCtrl = ["$scope", "$http", 
-        function($scope, $http) {
+    this.NavCtrl = ["$scope", "$location", 
+        function($scope, $location) {
             "use strict";
 
-            // standard set of templates for application navigation
-            $scope.templates = {
-                'login': '/login_form',
-                'signup': '/signup_form'
+            $scope.nav = {}
+            $scope.nav.sharedlinks = {
+                login : {label: "Sign in", template: "/login_form", action: "login"},
+                signup: {label: "Sign up", template: "/signup_form", action: "signup"},
+                forgotpassword: {label: "Forgot password", template: "/forgotpassword_form", action: "forgotpassword"}
             };
 
-            $scope.nav = {}
-            $scope.nav.sharedlinks = [
-                {label: "Sign in", action: "login"},
-                {label: "Sign up", action: "signup"},
-                {label: "Forgot your password", action: "frgotpassword"}
-            ];
             $scope.nav.url = "/navigation";
             $scope.nav.current = "";
 
@@ -34,7 +31,7 @@
             //  like login, signup
             //  for usage see _navigation.html.erb
             $scope.loadAndShowModal = function(temp){
-                $scope.$root.$broadcast("modal_load", {templateUrl : $scope.templates[temp]});
+                $scope.$root.$broadcast("modal_load", {templateUrl : $scope.nav.sharedlinks[temp].template});
                 // hide the alert messages on navigation clicks
                 $scope.$root.$broadcast("hide-flash-messages");
                 //store the current location in a variable
@@ -43,9 +40,9 @@
 
             $scope.sharedlinks = function(){
                 var links = [];
-                for(var index in $scope.nav.sharedlinks){
-                    if($scope.nav.sharedlinks[index].action != $scope.app.currentlink){
-                        links.push($scope.nav.sharedlinks[index])    
+                for(var link in $scope.nav.sharedlinks){
+                    if(link != $scope.app.currentlink){
+                        links.push($scope.nav.sharedlinks[link])    
                     }
                 }
                 return links;

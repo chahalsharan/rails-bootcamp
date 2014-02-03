@@ -1,5 +1,5 @@
 (function() {
-  var app = angular.module("WeShare", ["ngResource"]);
+  var app = angular.module("WeShare", []);
 
   app.factory("Item", [
       "$resource", function($resource) {
