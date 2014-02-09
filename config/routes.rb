@@ -1,10 +1,13 @@
 RailsBootstrap::Application.routes.draw do
+  resources :addresses
+
     resources :items
 
     root :to => 'listings#index'
 
     get 'search' => 'listings#search', :as => 'search'
-    get 'navigation' => "listings#navigation", :as => 'navigation'
+    get 'navigation' => "navigation#navigation", :as => 'navigation'
+
     devise_for :users, :controllers => {
         :sessions => "sessions",
         :registrations => "registrations",

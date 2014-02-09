@@ -6,8 +6,4 @@ class ListingsController < ApplicationController
         @searchTerm = params[:searchTerm]
         @searchLocation = params[:searchLocation]
     end
-
-    def navigation
-        render partial: "layouts/navigation"
-    end
 end
